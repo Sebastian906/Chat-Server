@@ -1,25 +1,25 @@
-import { genSalt } from "bcrypt";
+import { genSalt, hash } from "bcrypt";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    correo: {
+    email: {
         type: String,
         required: [true, "El correo es requerido"],
         unique: true,
     },
-    contraseña: {
+    password: {
         type: String,
         required: [true, "La contraseña es requerida"],
     },
-    nombre: {
+    firstName: {
         type: String,
         required: false,
     },
-    apellido: {
+    lastName: {
         type: String,
         required: false,
     },
-    imagen: {
+    image: {
         type: String,
         required: false,
     },
@@ -27,9 +27,9 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: false,
     },
-    perfil: {
+    profileSetup: {
         type: Boolean,
-        required: false,
+        default: false,
     }
 });
 
@@ -39,6 +39,6 @@ userSchema.pre("save", async function(next) {
     next();
 });
 
-const Usuario = mongoose.model("Usuarios",userSchema);
+const User = mongoose.model("Usuarios",userSchema);
 
-export default Usuario;
+export default User;
